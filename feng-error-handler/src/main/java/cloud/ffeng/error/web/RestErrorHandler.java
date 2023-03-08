@@ -27,7 +27,11 @@ public class RestErrorHandler {
     @ExceptionHandler(Throwable.class)
     public Result<?> handle(Throwable e) {
         if (e instanceof BizException) {
-            log.warn("[Exception Handler] {}, print stack: {}", ((BizException) e).logString(), printStack(e.getStackTrace()));
+            if (((BizException) e).isSystemError()) {
+                log.error("[Exception Handler] {}, print stack: {}", ((BizException) e).logString(), printStack(e.getStackTrace()));
+            } else {
+                log.warn("[Exception Handler] {}, print stack: {}", ((BizException) e).logString(), printStack(e.getStackTrace()));
+            }
             return ((BizException) e).toResult();
         }
         if (e instanceof MethodArgumentNotValidException) {

@@ -17,6 +17,7 @@
     <modules>
         <module>feng-common</module>
         <module>feng-error-handler</module>
+        <module>feng-strategy-spring</module>
     </modules>
 
     <properties>
